@@ -8,9 +8,11 @@ function App() {
     store: ''
   });
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
+    setIsError(false);
     const fetchData = async () => {
       try {
         await axios.all([
@@ -22,10 +24,12 @@ function App() {
             const name = response[1].data[0].data.name;
 
             setAppState({ products: allProducts, store: name });
-            console.log(allProducts, name);
+            // console.log(allProducts, name);
           })
       } catch (error) {
-        console.log(error);
+        setIsError(true);
+        setIsLoading(false);
+        // console.log(error);
       }
       setIsLoading(false);
     }
@@ -38,6 +42,7 @@ function App() {
     <div className="App">
       <h1>{appState.store}</h1>
       <div className="product-container">
+        {isError && <div className='title-container'>Something went wrong ...</div>}
         {isLoading ? (
           <div style={{ textAlign: "center" }}>Loading ...</div>
         ) : (

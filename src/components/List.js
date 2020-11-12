@@ -1,6 +1,7 @@
 import React from 'react';
 
 const List = ({ products }) => {
+    if (!products || products.length === 0) return <p className='title-container'>No products, sorry</p>;
     return (
         <ul className="product-list">
             {products.data.map((product) => (
