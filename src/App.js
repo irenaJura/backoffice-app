@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import List from './components/List';
 import axios from 'axios';
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
   return (
     <div className="App">
       <h1>{appState.store}</h1>
+      <div className="product-container">
+        <List products={appState.products} />
+      </div>
     </div >
   );
 }
