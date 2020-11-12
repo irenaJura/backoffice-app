@@ -7,8 +7,10 @@ function App() {
     products: null,
     store: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchData = async () => {
       try {
         await axios.all([
@@ -25,6 +27,7 @@ function App() {
       } catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     }
 
     fetchData();
@@ -35,7 +38,11 @@ function App() {
     <div className="App">
       <h1>{appState.store}</h1>
       <div className="product-container">
-        <List products={appState.products} />
+        {isLoading ? (
+          <div style={{ textAlign: "center" }}>Loading ...</div>
+        ) : (
+            <List products={appState.products} />
+          )}
       </div>
     </div >
   );
