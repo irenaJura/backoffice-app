@@ -40,11 +40,13 @@ function App() {
 
   return (
     <div className="App">
-      <h1>{appState.store}</h1>
+      <div className='title-container'>
+        <h1>{appState.store}</h1>
+      </div>
       <div className="product-container">
         {isError && <div className='title-container'>Something went wrong ...</div>}
         {isLoading ? (
-          <div style={{ textAlign: "center" }}>Loading ...</div>
+          <div className='title-container'>Loading ...</div>
         ) : (
             <List products={appState.products} />
           )}
