@@ -13,29 +13,30 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     setIsError(false);
-    const fetchData = async () => {
-      try {
-        await axios.all([
-          axios.get('http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products'),
-          axios.get(`http://us-central1-test-b7665.cloudfunctions.net/api/stores`),
-        ])
-          .then(response => {
-            const allProducts = response[0];
-            const name = response[1].data[0].data.name;
-
-            setAppState({ products: allProducts, store: name });
-            // console.log(allProducts, name);
-          })
-      } catch (error) {
-        setIsError(true);
-        setIsLoading(false);
-        // console.log(error);
-      }
-      setIsLoading(false);
-    }
 
     fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      await axios.all([
+        axios.get('http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products'),
+        axios.get(`http://us-central1-test-b7665.cloudfunctions.net/api/stores`),
+      ])
+        .then(response => {
+          const allProducts = response[0];
+          const name = response[1].data[0].data.name;
+
+          setAppState({ products: allProducts, store: name });
+          // console.log(allProducts, name);
+        })
+    } catch (error) {
+      setIsError(true);
+      setIsLoading(false);
+      // console.log(error);
+    }
+    setIsLoading(false);
+  }
 
 
   return (
