@@ -1,70 +1,88 @@
-import React, { useState } from 'react'
-
-const AddProductForm = ({ addProduct }) => {
-    const initialFormState = { title: '', category: '', price: '', employee: '', description: '' }
-    const [product, setProduct] = useState(initialFormState)
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target
-        setProduct({ ...product, [name]: value })
+import React, { Component } from 'react';
+import axios from 'axios';
+class AddProductForm extends Component {
+    state = {
+        title: '',
+        category: '',
+        price: '',
+        employee: '',
+        description: '',
     }
 
-    return (
-        <form
-            onSubmit={(event) => {
-                event.preventDefault()
-                if (!product.title || !product.category || !product.price || !product.employee || !product.description) return
+    handleInputChange = (e) => {
+        const { name, value } = e.target
+        this.setState({ [name]: value })
+        console.log(this.state)
+    }
 
-                if (addProduct(product)) {
-                    setProduct(initialFormState)
-                    // fetch all products or call something that adds a product to your list
-                }
-                
-            }}
-        >
-            <label>Title</label>
-            <input
-                type="text"
-                name="title"
-                value={product.title}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Category</label>
-            <input
-                type="text"
-                name="category"
-                value={product.category}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Price</label>
-            <input
-                type="number"
-                name="price"
-                value={product.price}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Employee</label>
-            <input
-                type="text"
-                name="employee"
-                value={product.employee}
-                onChange={handleInputChange}
-            />
-            <br />
-            <label>Description</label>
-            <input
-                type="text"
-                name="description"
-                value={product.description}
-                onChange={handleInputChange}
-            />
-            <br />
-            <button>Add new product</button>
-        </form>
-    )
+    handleSubmit = (e) => {
+        e.preventDefault();
+
+        const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
+        axios({
+            method: 'post',
+            url: `${apiUrl}`,
+            data: this.state
+        })
+            .then(() => this.props.fetchData())
+            .catch((error) => console.log(error))
+
+        this.setState({
+            title: '',
+            category: '',
+            price: '',
+            employee: '',
+            description: '',
+        })
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>Title</label>
+                <input
+                    type="text"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <label>Category</label>
+                <input
+                    type="text"
+                    name="category"
+                    value={this.state.category}
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <label>Price</label>
+                <input
+                    type="number"
+                    name="price"
+                    value={this.state.price}
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <label>Employee</label>
+                <input
+                    type="text"
+                    name="employee"
+                    value={this.state.employee}
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <label>Description</label>
+                <input
+                    type="text"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.handleInputChange}
+                />
+                <br />
+                <button type="submit">Add new product</button>
+            </form>
+        )
+    }
 }
 
 export default AddProductForm;
