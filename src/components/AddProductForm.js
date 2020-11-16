@@ -12,7 +12,7 @@ class AddProductForm extends Component {
     handleInputChange = (e) => {
         const { name, value } = e.target
         this.setState({ [name]: value })
-        console.log(this.state)
+        // console.log(this.state)
     }
 
     handleSubmit = (e) => {
@@ -60,7 +60,7 @@ class AddProductForm extends Component {
 
                 <div className="form-row">
                     <div className="form-group col-md-6">
-                        <input type="text"
+                        <input type="number"
                             className="form-control"
                             placeholder="Price"
                             name="price"
