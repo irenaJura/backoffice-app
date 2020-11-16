@@ -5,14 +5,17 @@ const List = ({ products, deleteProduct }) => {
     return (
         <ul className="product-list">
             {products.map((product) => (
-                <li key={product.id} className="product-card">
-                    <p>Title: {product.data.title}</p>
-                    <p>Description: {product.data.description}</p>
-                    <p>Price: {product.data.price}</p>
-                    <p>Category: {product.data.category}</p>
-                    <p>Employee: {product.data.employee}</p>
-                    <button onClick={() => deleteProduct(product.id)}>Delete</button>
-                </li>
+                <div className="card bg-light text-dark" key={product.id} style={{ width: "18rem", textAlign: "center" }}>
+                    <div className="card-body">
+                        <h5 className="card-title">Title: {product.data.title}</h5>
+                        <li className="list-group-item">Description: {product.data.description}</li>
+                        <li className="list-group-item">Price: {product.data.price}</li>
+                        <li className="list-group-item">Category: {product.data.category}</li>
+                        <li className="list-group-item">Employee: {product.data.employee}</li>
+                    </div>
+
+                    <button className="btn btn-danger" onClick={() => deleteProduct(product.id)}>Delete</button>
+                </div>
             ))}
         </ul>
     );

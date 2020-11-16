@@ -39,47 +39,56 @@ class AddProductForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <label>Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={this.state.title}
-                    onChange={this.handleInputChange}
-                />
-                <br />
-                <label>Category</label>
-                <input
-                    type="text"
-                    name="category"
-                    value={this.state.category}
-                    onChange={this.handleInputChange}
-                />
-                <br />
-                <label>Price</label>
-                <input
-                    type="number"
-                    name="price"
-                    value={this.state.price}
-                    onChange={this.handleInputChange}
-                />
-                <br />
-                <label>Employee</label>
-                <input
-                    type="text"
-                    name="employee"
-                    value={this.state.employee}
-                    onChange={this.handleInputChange}
-                />
-                <br />
-                <label>Description</label>
-                <input
-                    type="text"
-                    name="description"
-                    value={this.state.description}
-                    onChange={this.handleInputChange}
-                />
-                <br />
-                <button type="submit">Add new product</button>
+                <div className="form-row">
+                    <div className="form-group col-md-6">
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Title"
+                            name="title"
+                            value={this.state.title}
+                            onChange={this.handleInputChange} />
+                    </div>
+                    <div className="form-group col-md-6">
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Category"
+                            name="category"
+                            value={this.state.category}
+                            onChange={this.handleInputChange} />
+                    </div>
+                </div>
+
+                <div className="form-row">
+                    <div className="form-group col-md-6">
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Price"
+                            name="price"
+                            value={this.state.price}
+                            onChange={this.handleInputChange} />
+                    </div>
+
+                    <div className="form-group col-md-6">
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Employee"
+                            name="employee"
+                            value={this.state.employee}
+                            onChange={this.handleInputChange} />
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="form-group col-md-12">
+                        <input type="text"
+                            className="form-control"
+                            placeholder="Description"
+                            name="description"
+                            value={this.state.description}
+                            onChange={this.handleInputChange} />
+                    </div>
+                </div>
+                <button type="submit" className="btn btn-primary">Add new product</button>
             </form>
         )
     }
