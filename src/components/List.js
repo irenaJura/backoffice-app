@@ -21,7 +21,7 @@ const List = ({ products, deleteProduct }) => {
                             <li className="list-group-item">Category: {product.data.category}</li>
                             <li className="list-group-item">Employee: {product.data.employee}</li>
                         </div>
-                        <button className="btn btn-danger" onClick={() => deleteProduct(product.id)}>Delete</button>
+                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) deleteProduct(product.id) }}>Delete</button>
                     </div>
                 ))}
             </ul>

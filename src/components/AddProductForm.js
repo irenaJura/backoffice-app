@@ -33,6 +33,7 @@ class AddProductForm extends Component {
             price: '',
             employee: '',
             description: '',
+            review: ''
         })
     }
 
