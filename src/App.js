@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import List from './components/List';
 import AddProductForm from './components/AddProductForm';
+import Chart from './components/Chart';
 import axios from 'axios';
 
 class App extends Component {
@@ -69,6 +70,9 @@ class App extends Component {
       <div className="container-fluid">
         <div className="name-container">
           <h1>{this.state.storeName}</h1>
+        </div>
+        <div className="chart-container">
+          <Chart />
         </div>
         <div className="form-container bg-light text-dark">
           <AddProductForm fetchData={this.fetchData} />
