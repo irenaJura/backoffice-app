@@ -26,10 +26,8 @@ class App extends Component {
         this.setState({
           products: response.data
         })
-        //console.log(this.state.products)
       })
       .catch(error => {
-        console.log(error);
         this.setState({ isError: true })
       })
       .finally(() => this.setState({
@@ -51,7 +49,6 @@ class App extends Component {
 
     axios({ method: 'get', url: `${apiUrl}` })
       .then(response => {
-        // console.log(response.data[0].data.name)
         this.setState({
           storeName: response.data[0].data.name
         })

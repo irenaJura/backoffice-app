@@ -7,12 +7,31 @@ class AddProductForm extends Component {
         price: '',
         employee: '',
         description: '',
+        reviewArray: []
     }
 
     handleInputChange = (e) => {
         const { name, value } = e.target
         this.setState({ [name]: value })
-        // console.log(this.state)
+    }
+
+    handleReviewChange = (e, index) => {
+        const reviewArrayCopy = [...this.state.reviewArray];
+        reviewArrayCopy[index] = e.target.value;
+        this.setState({ reviewArray: reviewArrayCopy })
+    }
+
+    addReview = () => {
+        this.setState({
+            reviewArray: [...this.state.reviewArray, '']
+        });
+        console.log(this.state.reviewArray)
+    }
+
+    handleRemove = (index) => {
+        this.state.reviewArray.splice(index, 1);
+
+        this.setState({ reviewArray: this.state.reviewArray })
     }
 
     handleSubmit = (e) => {
@@ -33,7 +52,7 @@ class AddProductForm extends Component {
             price: '',
             employee: '',
             description: '',
-            review: ''
+            reviewArray: []
         })
     }
 
@@ -89,7 +108,34 @@ class AddProductForm extends Component {
                             onChange={this.handleInputChange} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">Add new product</button>
+
+                <button
+                    className="btn btn-secondary mr-1"
+                    type="button"
+                    onClick={(e) => this.addReview(e)}
+                >
+                    Add a review
+                </button>
+                {this.state.reviewArray.map((review, index) => {
+                    return (
+                        <div key={index} className="row mt-3">
+                            <div className="form-group col-md-10">
+                                <input
+                                    className="form-control"
+                                    placeholder="Review"
+                                    value={review}
+                                    onChange={(e) => this.handleReviewChange(e, index)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <button className="btn btn-danger" onClick={() => this.handleRemove(index)}>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                    )
+                })}
+                <button type="submit" className="btn btn-primary ml-1">Add new product</button>
             </form>
         )
     }
