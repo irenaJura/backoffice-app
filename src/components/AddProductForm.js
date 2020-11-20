@@ -25,12 +25,10 @@ class AddProductForm extends Component {
         this.setState({
             reviewArray: [...this.state.reviewArray, '']
         });
-        console.log(this.state.reviewArray)
     }
 
     handleRemove = (index) => {
         this.state.reviewArray.splice(index, 1);
-
         this.setState({ reviewArray: this.state.reviewArray })
     }
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ListItem from './ListItem';
 
 const List = ({ products, deleteProduct }) => {
     const [isPanel, setIsPanel] = useState(false);
@@ -14,15 +15,7 @@ const List = ({ products, deleteProduct }) => {
             <ul className="product-list">
                 {products.map((product) => (
                     <div className="card bg-light text-dark" key={product.id} style={isPanel ? { width: "760px" } : { width: "18rem" }}>
-                        <div className="card-body">
-                            <h5 className="card-title">Title: {product.data.title}</h5>
-                            <li className="list-group-item">Description: {product.data.description}</li>
-                            <li className="list-group-item">Price: {product.data.price}</li>
-                            <li className="list-group-item">Category: {product.data.category}</li>
-                            <li className="list-group-item">Employee: {product.data.employee}</li>
-                            {product.data.reviewArray ? product.data.reviewArray.map(r => <li className="list-group-item" key={r}>Review: {r} </li>) : ''}
-                        </div>
-                        <button className="btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) deleteProduct(product.id) }}>Delete</button>
+                        <ListItem product={product} deleteProduct={deleteProduct} />
                     </div>
                 ))}
             </ul>
