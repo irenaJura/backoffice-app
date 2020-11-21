@@ -32,26 +32,25 @@ class AddProductForm extends Component {
         this.setState({ reviewArray: this.state.reviewArray })
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
 
-        const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
-        axios({
-            method: 'post',
-            url: `${apiUrl}`,
-            data: this.state
-        })
-            .then(() => this.props.fetchData())
-            .catch((error) => console.log(error))
+        try {
+            const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
+            await axios({ method: 'post', url: `${apiUrl}`, data: this.state });
+            this.props.fetchData();
 
-        this.setState({
-            title: '',
-            category: '',
-            price: '',
-            employee: '',
-            description: '',
-            reviewArray: []
-        })
+            this.setState({
+                title: '',
+                category: '',
+                price: '',
+                employee: '',
+                description: '',
+                reviewArray: []
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {

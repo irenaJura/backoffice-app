@@ -20,32 +20,30 @@ class Chart extends Component {
         this.fetchData();
     }
 
-    fetchData = () => {
-        const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/stats/categories';
+    fetchData = async () => {
+        try {
+            const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/stats/categories';
+            const response = await axios({ method: 'get', url: `${apiUrl}` });
 
-        axios({ method: 'get', url: `${apiUrl}` })
-            .then(response => {
-                const labelsResult = response.data.map(l => l.category);
-                const numbersResult = response.data.map(n => n.numberOfProducts);
-                const colors = response.data.map(c => c.numberOfProducts = `rgba(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, 0.9)`)
+            const labelsResult = response.data.map(l => l.category);
+            const numbersResult = response.data.map(n => n.numberOfProducts);
+            const colors = response.data.map(c => c.numberOfProducts = `rgba(${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, ${Math.floor(Math.random() * 255) + 1}, 0.9)`)
 
-                this.setState({
-                    chartData: {
-                        labels: labelsResult,
-                        datasets: [
-                            {
-                                label: 'Categories',
-                                data: numbersResult,
-                                backgroundColor: colors
-                            }
-                        ]
-                    }
-                })
+            this.setState({
+                chartData: {
+                    labels: labelsResult,
+                    datasets: [
+                        {
+                            label: 'Categories',
+                            data: numbersResult,
+                            backgroundColor: colors
+                        }
+                    ]
+                }
             })
-            .catch(error => {
-                console.log(error);
-            })
-
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     render() {

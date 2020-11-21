@@ -6,7 +6,7 @@ import axios from 'axios';
 
 class App extends Component {
   state = {
-    products: null,
+    products: [],
     loading: false,
     isError: false,
     storeName: ''
@@ -18,48 +18,41 @@ class App extends Component {
     this.fetchName();
   }
 
-  fetchData = () => {
-    const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
-
-    axios({ method: 'get', url: `${apiUrl}` })
-      .then(response => {
-        this.setState({
-          products: response.data
-        })
-      })
-      .catch(error => {
-        this.setState({ isError: true })
-      })
-      .finally(() => this.setState({
-        loading: false
-      }))
+  fetchData = async () => {
+    try {
+      const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
+      const response = await axios({ method: 'get', url: `${apiUrl}` });
+      this.setState({ products: response.data });
+    } catch {
+      this.setState({ isError: true })
+    } finally {
+      this.setState({ loading: false })
+    }
   }
 
-  deleteProduct(id) {
-    axios
-      .delete(`http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products/${id}`)
-      .then(() => {
-        const products = this.state.products.filter(item => item.id !== id);
-        this.setState({ products });
-      })
+
+  fetchName = async () => {
+    try {
+      const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores';
+      const response = await axios({ method: 'get', url: `${apiUrl}` })
+      this.setState({ storeName: response.data[0].data.name })
+    } catch {
+      this.setState({ isError: true })
+    } finally {
+      this.setState({ loading: false })
+    }
   }
 
-  fetchName = () => {
-    const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores';
+  deleteProduct = async (id) => {
+    try {
+      const apiUrl = `http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products/${id}`;
+      await axios.delete(`${apiUrl}`);
 
-    axios({ method: 'get', url: `${apiUrl}` })
-      .then(response => {
-        this.setState({
-          storeName: response.data[0].data.name
-        })
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ isError: true })
-      })
-      .finally(() => this.setState({
-        loading: false
-      }))
+      const products = this.state.products.filter(item => item.id !== id);
+      this.setState({ products });
+    } catch {
+      console.log("Failed to delete product");
+    }
   }
 
   render() {
