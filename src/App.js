@@ -20,6 +20,7 @@ class App extends Component {
     this.fetchName();
   }
 
+  // fetching products and store name
   fetchData = async () => {
     try {
       const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products';
@@ -31,7 +32,6 @@ class App extends Component {
       this.setState({ loading: false });
     }
   }
-
 
   fetchName = async () => {
     try {
@@ -45,6 +45,7 @@ class App extends Component {
     }
   }
 
+  // delete a single product
   deleteProduct = async (id) => {
     try {
       const apiUrl = `http://us-central1-test-b7665.cloudfunctions.net/api/stores/ijpxNJLM732vm8AeajMR/products/${id}`;
@@ -67,9 +68,6 @@ class App extends Component {
         <div className="name-container">
           <h1>{this.state.storeName}</h1>
         </div>
-        <div className="chart-container">
-          <Chart />
-        </div>
         <div className="form-container bg-light text-dark">
           <AddProductForm fetchData={this.fetchData} />
         </div>
@@ -80,6 +78,9 @@ class App extends Component {
           ) : (
               <List products={this.state.products} deleteProduct={(id) => this.deleteProduct(id)} />
             )}
+        </div>
+        <div className="chart-container">
+          <Chart />
         </div>
       </div>
     )

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Polar } from 'react-chartjs-2';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Chart extends Component {
     state = {
         chartData: {
@@ -41,15 +43,20 @@ class Chart extends Component {
                 }
             })
         } catch (error) {
-            console.log(error);
+            toast.error('Failed to add categories, please reload the page');
         }
     }
 
     render() {
         return (
-            <div className="chart">
-                <Polar data={this.state.chartData} />
-            </div>
+            <>
+                <div className="form-group">
+                    <ToastContainer autoClose={2000} />
+                </div>
+                <div className="chart">
+                    <Polar data={this.state.chartData} />
+                </div>
+            </>
         );
     }
 }

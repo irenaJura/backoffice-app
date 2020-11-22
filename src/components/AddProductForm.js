@@ -13,26 +13,27 @@ class AddProductForm extends Component {
         errors: {}
     }
 
+    // validation method to check if not empty/only letters
     handleValidation() {
         let fields = this.state;
         let errors = {};
         let formIsValid = true;
 
+        // title
         if (!fields.title) {
             formIsValid = false;
             errors.title = "Cannot be empty";
         }
-
         if (!fields.title.match(/^[a-zA-Z]+$/)) {
             formIsValid = false;
             errors.title = "Only letters accepted";
         }
 
+        // category
         if (!fields.category) {
             formIsValid = false;
             errors.category = "Cannot be empty";
         }
-
         if (typeof fields.category !== "undefined") {
             if (!fields.category.match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
@@ -40,32 +41,33 @@ class AddProductForm extends Component {
             }
         }
 
+        // price
         if (!fields.price) {
             formIsValid = false;
             errors.price = "Cannot be empty";
         }
 
+        // employee
         if (!fields.employee) {
             formIsValid = false;
             errors.employee = "Cannot be empty";
         }
-
-        if (typeof fields.category !== "undefined") {
-            if (!fields.category.match(/^[a-zA-Z]+$/)) {
+        if (typeof fields.employee !== "undefined") {
+            if (!fields.employee.match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
-                errors.category = "Only letters accepted";
+                errors.employee = "Only letters accepted";
             }
         }
 
+        // description
         if (!fields.description) {
             formIsValid = false;
             errors.description = "Cannot be empty";
         }
-
-        if (typeof fields.category !== "undefined") {
-            if (!fields.category.match(/^[a-zA-Z]+$/)) {
+        if (typeof fields.description !== "undefined") {
+            if (!fields.description.match(/^[a-zA-Z]+$/)) {
                 formIsValid = false;
-                errors.category = "Only letters accepted";
+                errors.description = "Only letters accepted";
             }
         }
 
@@ -73,6 +75,7 @@ class AddProductForm extends Component {
         return formIsValid;
     }
 
+    // handle input changes
     handleInputChange = (e) => {
         const { name, value } = e.target
         this.setState({ [name]: value })
@@ -84,6 +87,7 @@ class AddProductForm extends Component {
         this.setState({ reviewArray: reviewArrayCopy })
     }
 
+    // add and remove review
     addReview = () => {
         this.setState({
             reviewArray: [...this.state.reviewArray, '']
@@ -95,6 +99,7 @@ class AddProductForm extends Component {
         this.setState({ reviewArray: this.state.reviewArray })
     }
 
+    // form submitting only after validation
     handleSubmit = (e) => {
         e.preventDefault();
         if (this.handleValidation()) {
@@ -183,7 +188,7 @@ class AddProductForm extends Component {
                         onClick={(e) => this.addReview(e)}
                     >
                         Add a review
-                </button>
+                    </button>
                     {this.state.reviewArray.map((review, index) => {
                         return (
                             <div key={index} className="row mt-3">
@@ -198,7 +203,7 @@ class AddProductForm extends Component {
                                 <div className="form-group">
                                     <button className="btn btn-danger" onClick={() => this.handleRemove(index)}>
                                         Remove
-                                </button>
+                                    </button>
                                 </div>
                             </div>
                         )

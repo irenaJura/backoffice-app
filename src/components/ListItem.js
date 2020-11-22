@@ -9,6 +9,7 @@ const ListItem = ({ product, deleteProduct }) => {
                 <li className="list-group-item">Price: {product.data.price}</li>
                 <li className="list-group-item">Category: {product.data.category}</li>
                 <li className="list-group-item">Employee: {product.data.employee}</li>
+                {/* if product has any reviews show them */}
                 {product.data.reviewArray && product.data.reviewArray != null
                     ? product.data.reviewArray
                         .filter(entry => entry.trim() !== '')
