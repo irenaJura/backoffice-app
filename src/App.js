@@ -3,6 +3,8 @@ import List from './components/List';
 import AddProductForm from './components/AddProductForm';
 import Chart from './components/Chart';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class App extends Component {
   state = {
@@ -24,9 +26,9 @@ class App extends Component {
       const response = await axios({ method: 'get', url: `${apiUrl}` });
       this.setState({ products: response.data });
     } catch {
-      this.setState({ isError: true })
+      this.setState({ isError: true });
     } finally {
-      this.setState({ loading: false })
+      this.setState({ loading: false });
     }
   }
 
@@ -34,12 +36,12 @@ class App extends Component {
   fetchName = async () => {
     try {
       const apiUrl = 'http://us-central1-test-b7665.cloudfunctions.net/api/stores';
-      const response = await axios({ method: 'get', url: `${apiUrl}` })
-      this.setState({ storeName: response.data[0].data.name })
+      const response = await axios({ method: 'get', url: `${apiUrl}` });
+      this.setState({ storeName: response.data[0].data.name });
     } catch {
-      this.setState({ isError: true })
+      this.setState({ isError: true });
     } finally {
-      this.setState({ loading: false })
+      this.setState({ loading: false });
     }
   }
 
@@ -50,14 +52,18 @@ class App extends Component {
 
       const products = this.state.products.filter(item => item.id !== id);
       this.setState({ products });
+      toast.success('Product successfully deleted');
     } catch {
-      console.log("Failed to delete product");
+      toast.error('Failed to delete product, please try again');
     }
   }
 
   render() {
     return (
       <div className="container-fluid">
+        <div className="form-group">
+          <ToastContainer autoClose={2000} />
+        </div>
         <div className="name-container">
           <h1>{this.state.storeName}</h1>
         </div>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Polar } from 'react-chartjs-2';
 import axios from 'axios';
-
 class Chart extends Component {
     state = {
         chartData: {
